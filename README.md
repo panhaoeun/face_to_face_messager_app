@@ -1,5 +1,6 @@
-# face_to_face_messager_app
-# face_to_face_messager_app
+# Face to Face Messager App
+# Open Source Project 
+
 
 A new Flutter project.
 
