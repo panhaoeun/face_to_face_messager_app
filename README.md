@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 # face_to_face_messager_app
-=======
 # face_to_face_messager_app
 
 A new Flutter project.
