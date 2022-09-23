@@ -1,8 +1,9 @@
 import 'package:face_to_face_messager_app/common/colors.dart';
-import 'package:face_to_face_messager_app/view/pages/messager/messager_frm_page.dart';
 import 'package:face_to_face_messager_app/view/widgets/global_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../chat_app/messager/chatapp_page.dart';
 
 class FaceIdMainPage extends StatefulWidget {
   const FaceIdMainPage({Key? key}) : super(key: key);

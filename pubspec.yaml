@@ -45,6 +45,9 @@ dependencies:
   google_fonts: ^3.0.1
   iconsax: ^0.0.8
   diamond_bottom_bar: ^1.0.0
+  http: ^0.13.5
+  app_popup_menu: ^1.0.0
+  rive: ^0.9.1
 
 
 dev_dependencies:

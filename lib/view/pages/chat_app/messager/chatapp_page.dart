@@ -1,10 +1,13 @@
 import 'package:diamond_bottom_bar/diamond_bottom_bar.dart';
 import 'package:face_to_face_messager_app/common/colors.dart';
+import 'package:face_to_face_messager_app/view/pages/chat_app/calling/calling_list.dart';
+import 'package:face_to_face_messager_app/view/pages/chat_app/messager/coversation_page.dart';
+import 'package:face_to_face_messager_app/view/widgets/popup/popup_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../domain/models/popup/popup_menu_button.dart';
 
-import '../onboarding/onboarding_page.dart';
-import '../register/faceId/face_id_main_page.dart';
+
 
 class MessengerList extends StatefulWidget {
   const MessengerList({Key? key}) : super(key: key);
@@ -14,15 +17,28 @@ class MessengerList extends StatefulWidget {
 }
 
 class _MessengerListState extends State<MessengerList> {
+  List<PopupMenuButtonModel> listPopupMenuButton = [
+    PopupMenuButtonModel(title: 'New Group', position: 0, iconData: Iconsax.user),
+    PopupMenuButtonModel(title: 'New Broadcast', position: 1, iconData: Iconsax.activity),
+    PopupMenuButtonModel(title: 'Invite Friend', position: 2, iconData: Iconsax.user_octagon),
+    PopupMenuButtonModel(title: 'Setting', position: 3, iconData: Iconsax.setting),
+  ];
+
   int _selectedIndex = 0;
   late Widget _selectedWidget;
 
   @override
+  void initState(){
+    _selectedWidget = const ConversationPage();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
+      body: _buildBody(context),
       bottomNavigationBar: DiamondBottomNavigation(
-        height: 60,
+        height: 70,
         selectedColor: Colors.blue,
         unselectedColor: Colors.black38,
         selectedLightColor: colorBlue,
@@ -43,15 +59,15 @@ class _MessengerListState extends State<MessengerList> {
     setState(() {
       _selectedIndex = index;
       if (index == 0) {
-        _selectedWidget = const onBoardingPage();
+        _selectedWidget = ConversationPage();
       } else if (index == 1) {
-        _selectedWidget = const FaceIdMainPage();
+        _selectedWidget = const CallingListPage();
       }
     });
   }
 
   //Build AppBar
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +92,8 @@ class _MessengerListState extends State<MessengerList> {
                       top: 65,
                       left: 10),
                   Positioned(
+                    top: 50,
+                    right: 2,
                     child: Row(
                       children: [
                         IconButton(
@@ -84,46 +102,18 @@ class _MessengerListState extends State<MessengerList> {
                               Iconsax.search_normal_14,
                               color: Colors.white,
                             )),
-                        _offsetPopup()
+                        //Menu Button
+                        PopupMenuButtonPage(title: listPopupMenuButton[0].title, iconData: listPopupMenuButton[0].iconData, position: listPopupMenuButton[0].position),
                       ],
                     ),
-                    top: 50,
-                    right: 2,
                   ),
                 ],
               ),
             ),
           ),
+          Expanded(child:_selectedWidget, flex: 1,),
         ],
       ),
     );
   }
-
-  Widget _offsetPopup() => PopupMenuButton<int>(
-        itemBuilder: (context) => [
-          PopupMenuItem(
-              value: 1,
-              child: Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Iconsax.profile_2user,
-                              color: colorBlack,
-                            ))),
-                    Text("New Group")
-                  ],
-                ),
-              )),
-        ],
-        icon: Icon(
-          Iconsax.more_circle,
-          color: Colors.white,
-        ),
-        offset: Offset(0, 50),
-      );
 }
