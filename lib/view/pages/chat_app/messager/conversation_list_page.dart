@@ -2,6 +2,7 @@ import 'package:face_to_face_messager_app/common/colors.dart';
 import 'package:face_to_face_messager_app/view/pages/chat_app/messager/reply_comment/chart_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ConversationListPage extends StatefulWidget {
   String name;
@@ -35,17 +36,23 @@ class _ConversationListPageState extends State<ConversationListPage> {
               bottomLeft: Radius.circular(32),
             ),
             child: ListTile(
-              contentPadding: EdgeInsets.fromLTRB(10, 5,20, 10),
-                autofocus: true,
-                mouseCursor: MouseCursor.uncontrolled,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                hoverColor: Color.fromRGBO(153, 255, 255, 10),
-                onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ChartDetailPage()),
-                    );
-                },
+              contentPadding: EdgeInsets.fromLTRB(10, 5, 20, 10),
+              autofocus: true,
+              mouseCursor: MouseCursor.defer,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              hoverColor: Color.fromRGBO(153, 255, 255, 10),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        curve: Curves.easeInOut,
+                        alignment: Alignment.center,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: ChartDetailPage(),
+                        type: PageTransitionType.rightToLeft));
+              },
                 title: Row(
                   children: [
                     //User Online or offline
